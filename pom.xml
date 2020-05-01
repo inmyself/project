@@ -139,23 +139,22 @@
       <version>4.1.7.RELEASE</version>
     </dependency>
 
-    <!--添加Redis依赖 -->
+    <!--Jedis客户端-->
     <dependency>
       <groupId>redis.clients</groupId>
       <artifactId>jedis</artifactId>
-      <version>2.7.3</version>
+      <version>3.1.0</version>
     </dependency>
-
-    <!--prostuff序列化依赖 -->
+    <!--Prostuff序列化-->
     <dependency>
       <groupId>com.dyuproject.protostuff</groupId>
       <artifactId>protostuff-core</artifactId>
-      <version>1.0.8</version>
+      <version>1.1.5</version>
     </dependency>
     <dependency>
       <groupId>com.dyuproject.protostuff</groupId>
       <artifactId>protostuff-runtime</artifactId>
-      <version>1.0.8</version>
+      <version>1.1.5</version>
     </dependency>
     <!--导入apache工具类 -->
     <dependency>
@@ -163,6 +162,7 @@
       <artifactId>commons-collections</artifactId>
       <version>3.2.2</version>
     </dependency>
+
   </dependencies>
 
   <build>
@@ -209,6 +209,12 @@
           <include>**/*.properties</include>
         </includes>
       </resource>
+      <!--<resource>
+        <directory>src/main/webapp</directory>
+        <includes>
+          <include>**/*.jsp</include>
+        </includes>
+      </resource>-->
     </resources>
   </build>
 </project>

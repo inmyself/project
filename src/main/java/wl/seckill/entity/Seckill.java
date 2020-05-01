@@ -5,6 +5,19 @@ import java.util.Date;
 public class Seckill {
 
     private long seckillId;
+
+    @Override
+    public String toString() {
+        return "Seckill{" +
+                "seckillId=" + seckillId +
+                ", name='" + name + '\'' +
+                ", number=" + number +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", createTime=" + createTime +
+                '}';
+    }
+
     //商品名称
     private String name;
     //商品库存

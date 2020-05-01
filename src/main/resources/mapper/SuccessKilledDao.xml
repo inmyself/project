@@ -6,7 +6,7 @@
     <!--插入购买信息-->
     <insert id="insertSuccessKilled">
         insert ignore into success_killed(seckill_id, user_phone)
-        values (#{seckillId}, #{userPhonde})
+        values (#{seckillId}, #{userPhone})
     </insert>
     <!--根据id,phone查询SuccessKillid并携带商品对象-->
     <select id="queryByIdWithSeckill" resultType="SuccessKilled">
@@ -24,8 +24,8 @@
         from success_killed sk
         inner join seckill s on sk.seckill_id = s.seckill_id
         <where>
-            seckill_id = #{seckillId}
-            and user_phone = #{userPhone}
+            sk.seckill_id = #{seckillId}
+            and sk.user_phone = #{userPhone}
         </where>
     </select>
 </mapper>

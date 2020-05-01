@@ -11,7 +11,7 @@
             number = number -1
         </set>
         <where>
-            seckill_id = seckillId
+            seckill_id = #{seckillId}
             and start_time &lt;= #{killTime}
             and end_time &gt;= #{killTime}
             and number > 0
@@ -33,5 +33,15 @@
         from seckill
         order by create_time desc
         limit #{offset}, #{limit}
+    </select>
+
+    <!--mybatis调用执行秒杀的存储过程-->
+    <select id="killByProcedure" statementType="CALLABLE">
+        call execute_seckill(
+            #{seckillId, jdbcType=BIGINT, mode=IN},
+            #{userPhone, jdbcType=BIGINT, mode=IN},
+            #{killTime, jdbcType=TIMESTAMP, mode=IN},
+            #{result, jdbcType=INTEGER, mode=OUT}
+        )
     </select>
 </mapper>

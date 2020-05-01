@@ -14,6 +14,8 @@ public class SuccessKilled {
     //秒杀商品实体
     private Seckill seckill;
 
+
+
     public Seckill getSeckill() {
         return seckill;
     }
@@ -52,5 +54,16 @@ public class SuccessKilled {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    @Override
+    public String toString() {
+        return "SuccessKilled{" +
+                "seckillId=" + seckillId +
+                ", userPhone=" + userPhone +
+                ", state=" + state +
+                ", createTime=" + createTime +
+                ", seckill=" + seckill +
+                '}';
     }
 }

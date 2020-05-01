@@ -30,18 +30,23 @@
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
     </bean>
-    <!--配置事务-->
-    <!--<bean id="transactionManager"  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <!--打开事务-->
+    <bean id="transactionManager"  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
-    <tx:annotation-driven transaction-manager="transactionManager"/>-->
+    <!--使用注解配置事务-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
     <!--Service-->
-    <!--<context:component-scan base-package="wl.seckill.service"/>-->
+    <context:component-scan base-package="wl.seckill.service"/>
     <!--mapper动态开发-->
     <bean id="scannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <property name="basePackage" value="wl.seckill.dao"/>
     </bean>
-
+    <!--实现redis的dao层Bean-->
+    <bean id="redisDao" class="wl.seckill.dao.cache.RedisDao">
+        <constructor-arg value="192.168.42.136"/>
+        <constructor-arg value="6379"/>
+    </bean>
 
 </beans>

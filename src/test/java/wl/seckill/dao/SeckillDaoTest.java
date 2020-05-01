@@ -8,6 +8,9 @@ import wl.seckill.entity.Seckill;
 
 import javax.annotation.Resource;
 
+import java.util.Date;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
@@ -21,6 +24,9 @@ public class SeckillDaoTest {
 
     @Test
     public void reduceNumber() {
+        Date killTime = new Date();
+        int i = seckillDao.reduceNumber(1000l, killTime);
+        System.out.println("i : " + i);
     }
 
     @Test
@@ -33,5 +39,13 @@ public class SeckillDaoTest {
 
     @Test
     public void queryAll() {
+        //对于多个参数，Java没有绑定参数名字的习惯。
+        //List<Seckill> queryAll(int offset, int limit); --》 List<Seckill> queryAll(int arg1, int arg2);
+        //所以在接口的方法中要使用@param绑定
+        List<Seckill> list = seckillDao.queryAll(0, 10);
+        for (Seckill seckill :
+                list) {
+            System.out.println(seckill);
+        }
     }
 }
