@@ -8,9 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import wl.seckill.dto.Exposer;
 import wl.seckill.dto.SeckillExecution;
+import wl.seckill.dto.SeckillList;
 import wl.seckill.dto.SeckillResult;
 import wl.seckill.entity.Seckill;
-import wl.seckill.enums.SeckillSatteEnum;
+import wl.seckill.enums.SeckillStateEnum;
 import wl.seckill.exception.RepeatKillException;
 import wl.seckill.exception.SeckillClosedException;
 import wl.seckill.service.SeckillService;
@@ -28,9 +29,9 @@ public class SeckillController {
     private SeckillService seckillService;
 
     //展示列表
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model){
-        List<Seckill> list = seckillService.getSeckillList();
+    @RequestMapping(value = "/{page}/list", method = RequestMethod.GET)
+    public String list(@PathVariable("page") Integer page, Model model){
+        SeckillList<Seckill> list = seckillService.getSeckillList(page - 1);
         model.addAttribute("list", list);
         return "list";
     }
@@ -81,15 +82,15 @@ public class SeckillController {
             result = new SeckillResult<>(true, seckillExecution);
             return result;
         } catch (RepeatKillException e) {//重复秒杀
-            seckillExecution = new SeckillExecution(seckillId, SeckillSatteEnum.REPEAT_ERROR);
+            seckillExecution = new SeckillExecution(seckillId, SeckillStateEnum.REPEAT_ERROR);
             result = new SeckillResult<>(true, seckillExecution);
             return result;
         } catch (SeckillClosedException e) {//秒杀关闭
-            seckillExecution = new SeckillExecution(seckillId, SeckillSatteEnum.END);
+            seckillExecution = new SeckillExecution(seckillId, SeckillStateEnum.END);
             result = new SeckillResult<>(true, seckillExecution);
             return result;
         } catch (Exception e) {//其他错误
-            seckillExecution = new SeckillExecution(seckillId, SeckillSatteEnum.INNER_ERROR);
+            seckillExecution = new SeckillExecution(seckillId, SeckillStateEnum.INNER_ERROR);
             result = new SeckillResult<>(true, seckillExecution);
             return result;
         }

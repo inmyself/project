@@ -1,7 +1,7 @@
 package wl.seckill.dto;
 
 import wl.seckill.entity.SuccessKilled;
-import wl.seckill.enums.SeckillSatteEnum;
+import wl.seckill.enums.SeckillStateEnum;
 
 /**
  * 封装秒杀执行结果
@@ -20,14 +20,14 @@ public class SeckillExecution {
     //秒杀成功对象
     private SuccessKilled successKilled;
 
-    public SeckillExecution(long seckillId, SeckillSatteEnum satteEnum, SuccessKilled successKilled) {
+    public SeckillExecution(long seckillId, SeckillStateEnum satteEnum, SuccessKilled successKilled) {
         this.seckillId = seckillId;
         this.state = satteEnum.getState();
         this.stateInfo = satteEnum.getStateInfo();
         this.successKilled = successKilled;
     }
 
-    public SeckillExecution(long seckillId, SeckillSatteEnum satteEnum) {
+    public SeckillExecution(long seckillId, SeckillStateEnum satteEnum) {
         this.seckillId = seckillId;
         this.state = satteEnum.getState();
         this.stateInfo = satteEnum.getStateInfo();

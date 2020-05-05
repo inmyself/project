@@ -1,0 +1,46 @@
+-------------------------------------------------------------------------------
+Test set: wl.seckill.dao.SuccessKilledDaoTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 2.008 s <<< FAILURE! - in wl.seckill.dao.SuccessKilledDaoTest
+insertSuccessKilled(wl.seckill.dao.SuccessKilledDaoTest)  Time elapsed: 1.01 s  <<< ERROR!
+org.mybatis.spring.MyBatisSystemException: 
+nested exception is org.apache.ibatis.exceptions.PersistenceException: 
+### Error updating database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Could not get JDBC Connection; nested exception is java.sql.SQLException: Connections could not be acquired from the underlying database!
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Could not get JDBC Connection; nested exception is java.sql.SQLException: Connections could not be acquired from the underlying database!
+	at wl.seckill.dao.SuccessKilledDaoTest.insertSuccessKilled(SuccessKilledDaoTest.java:22)
+Caused by: org.apache.ibatis.exceptions.PersistenceException: 
+
+### Error updating database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Could not get JDBC Connection; nested exception is java.sql.SQLException: Connections could not be acquired from the underlying database!
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Could not get JDBC Connection; nested exception is java.sql.SQLException: Connections could not be acquired from the underlying database!
+	at wl.seckill.dao.SuccessKilledDaoTest.insertSuccessKilled(SuccessKilledDaoTest.java:22)
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Could not get JDBC Connection; nested exception is java.sql.SQLException: Connections could not be acquired from the underlying database!
+	at wl.seckill.dao.SuccessKilledDaoTest.insertSuccessKilled(SuccessKilledDaoTest.java:22)
+Caused by: java.sql.SQLException: Connections could not be acquired from the underlying database!
+	at wl.seckill.dao.SuccessKilledDaoTest.insertSuccessKilled(SuccessKilledDaoTest.java:22)
+Caused by: com.mchange.v2.resourcepool.CannotAcquireResourceException: A ResourcePool could not acquire a resource from its primary factory or source.
+	at wl.seckill.dao.SuccessKilledDaoTest.insertSuccessKilled(SuccessKilledDaoTest.java:22)
+
+queryByIdWithSeckill(wl.seckill.dao.SuccessKilledDaoTest)  Time elapsed: 0.992 s  <<< ERROR!
+org.mybatis.spring.MyBatisSystemException: 
+nested exception is org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Could not get JDBC Connection; nested exception is java.sql.SQLException: Connections could not be acquired from the underlying database!
+### The error may exist in file [D:\Users\bsx\workspace-IJ\web\seckill\target\classes\mapper\SuccessKilledDao.xml]
+### The error may involve wl.seckill.dao.SuccessKilledDao.queryByIdWithSeckill
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Could not get JDBC Connection; nested exception is java.sql.SQLException: Connections could not be acquired from the underlying database!
+	at wl.seckill.dao.SuccessKilledDaoTest.queryByIdWithSeckill(SuccessKilledDaoTest.java:28)
+Caused by: org.apache.ibatis.exceptions.PersistenceException: 
+
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Could not get JDBC Connection; nested exception is java.sql.SQLException: Connections could not be acquired from the underlying database!
+### The error may exist in file [D:\Users\bsx\workspace-IJ\web\seckill\target\classes\mapper\SuccessKilledDao.xml]
+### The error may involve wl.seckill.dao.SuccessKilledDao.queryByIdWithSeckill
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Could not get JDBC Connection; nested exception is java.sql.SQLException: Connections could not be acquired from the underlying database!
+	at wl.seckill.dao.SuccessKilledDaoTest.queryByIdWithSeckill(SuccessKilledDaoTest.java:28)
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Could not get JDBC Connection; nested exception is java.sql.SQLException: Connections could not be acquired from the underlying database!
+	at wl.seckill.dao.SuccessKilledDaoTest.queryByIdWithSeckill(SuccessKilledDaoTest.java:28)
+Caused by: java.sql.SQLException: Connections could not be acquired from the underlying database!
+	at wl.seckill.dao.SuccessKilledDaoTest.queryByIdWithSeckill(SuccessKilledDaoTest.java:28)
+Caused by: com.mchange.v2.resourcepool.CannotAcquireResourceException: A ResourcePool could not acquire a resource from its primary factory or source.
+	at wl.seckill.dao.SuccessKilledDaoTest.queryByIdWithSeckill(SuccessKilledDaoTest.java:28)
+

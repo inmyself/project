@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import wl.seckill.dto.Exposer;
 import wl.seckill.dto.SeckillExecution;
+import wl.seckill.dto.SeckillList;
 import wl.seckill.entity.Seckill;
 import wl.seckill.exception.RepeatKillException;
 import wl.seckill.exception.SeckillClosedException;
@@ -29,8 +30,8 @@ public class SeckillServiceImplTest {
 
     @Test
     public void getSeckillList() {
-        List<Seckill> list = seckillService.getSeckillList();
-        logger.info("list{}", list);
+        SeckillList<Seckill> list = seckillService.getSeckillList(0);
+        logger.info("list{}", list.getSeckillList());
         //16:34:49.781 [main] INFO  w.s.s.impl.SeckillServiceImplTest - list[
         // Seckill{seckillId=1000, name='1000元秒杀iPhone X', number=99, startTime=Fri Apr 24 00:00:00 CST 2020, endTime=Thu Apr 30 12:00:00 CST 2020, createTime=Fri Apr 24 17:17:20 CST 2020},
         // Seckill{seckillId=1001, name='800元秒杀小米6', number=100, startTime=Fri Dec 13 00:00:00 CST 2019, endTime=Fri Dec 13 12:00:00 CST 2019, createTime=Fri Apr 24 17:17:20 CST 2020},

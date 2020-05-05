@@ -8,10 +8,29 @@
 <head>
     <title>秒杀详情页</title>
     <%@include file="commeon/head.jsp"%>
+    <%@include file="commeon/tag.jsp"%>
     <base href="<%= basePath%>">
 </head>
 <body>
 <div class="container">
+    <%--导航条--%>
+    <nav class="navber navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/seckill/1/list">限时秒杀</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="/seckill/1/list">秒杀列表</a> </li>
+                <li><a href="#">我的订单</a> </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" id="userInfo">
+                <li><a href="#"><span class="glyphicon glyphicon-user">注册</span> </a> </li>
+                <li><a href="#"><span class="glyphicon glyphicon-user">登录</span> </a> </li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    <br>
     <div class="panel panel-default text-center">
         <div class="pannel-heading">
             <h1>${seckill.name}</h1>
@@ -24,7 +43,6 @@
                 <%--展示倒计时--%>
                 <span class="glyphicon" id="seckill-box"></span>
             </h2>
-
         </div>
     </div>
 </div>
@@ -36,7 +54,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title text-center">
-                    <span class="glyphicon glyphicon-phone"> </span>秒杀电话:
+                    <span class="glyphicon glyphicon-phone">秒杀电话: </span>
                 </h3>
             </div>
 
@@ -64,10 +82,7 @@
 </div>
 
 </body>
-<!-- jQuery文件.务必在bootstrap.min.js 之前引入 -->
-<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <!-- 引入jQuery的cookie -->
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <!-- jQuery的计数-->
@@ -79,7 +94,8 @@
         seckill.detail.init({
             seckillId : ${seckill.seckillId},
             startTime : ${seckill.startTime.time},
-            endTime : ${seckill.endTime.time}
+            endTime : ${seckill.endTime.time},
+            userPhone : ${user}+"",
         });
     })
 </script>

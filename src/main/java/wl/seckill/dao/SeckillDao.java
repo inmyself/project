@@ -33,6 +33,12 @@ public interface SeckillDao {
     List<Seckill> queryAll(@Param("offset") int offset, @Param("limit") int limit);
 
     /**
+     * 查询秒杀商品的数量
+     * @return
+     */
+    int seckillCount();
+
+    /**
      * 使用存储过程执行秒杀
      */
     void killByProcedure(Map<String, Object> paramMap);

@@ -21,6 +21,24 @@
 </head>
 <body>
     <div class="container">
+        <%--导航条--%>
+        <nav class="navber navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/seckill/1/list">限时秒杀</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/seckill/1/list">秒杀列表</a> </li>
+                    <li><a href="#">我的订单</a> </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="user/toLoginOrRegister"><span class="glyphicon glyphicon-user">注册</span> </a> </li>
+                    <li><a href="user/toLoginOrRegister"><span class="glyphicon glyphicon-user">登录</span> </a> </li>
+                </ul>
+            </div>
+        </nav>
+        <br>
+        <br>
         <div class="panel panel-default">
             <div class="panel-heading text-center">
                 <h2>秒杀列表</h2>
@@ -29,6 +47,7 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>名称</th>
                             <th>库存</th>
                             <th>开始时间</th>
@@ -38,8 +57,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="sk" items="${list}">
+                        <c:forEach var="sk" items="${list.seckillList}" varStatus="state">
                             <tr>
+                                <td>${state.index + 1}</td>
                                 <td>${sk.name}</td>
                                 <td>${sk.number}</td>
                                 <td>
@@ -59,15 +79,18 @@
                     </tbody>
                 </table>
             </div>
+            <%--分页--%>
+            <div class="panel-footer text-center">
+                <ul class="pagination pagination-lg pager ">
+                    <li><a href="seckill/${list.page - 1}/list">上一页</a> </li>
+                    <li class="disabled"><span>${list.page}</span> </li>
+                    <li><a href="seckill/${list.page + 1}/list">下一页</a> </li>
+                </ul>
+            </div>
         </div>
     </div>
 
 
-
-
 </body>
-<!-- jQuery文件.务必在bootstrap.min.js 之前引入 -->
-<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </html>

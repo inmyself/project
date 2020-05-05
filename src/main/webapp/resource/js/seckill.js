@@ -26,7 +26,6 @@ var seckill = {
     handlerSeckill : function (seckillId, seckillBox) {
         //获取秒杀地址，控制显示逻辑，执行秒杀
         seckillBox.hide().html("<button class='btn btn-primary btn-lg' id='killBtn'>开始秒杀</button>");
-        suc_info.hide();
         $.post(seckill.URL.exposer(seckillId), {}, function (result) {
             if (result && result['success']){
                 var exposer = result['data'];
@@ -87,14 +86,14 @@ var seckill = {
         init : function (params) {
             //手机验证和登录、计时交互
             //在cookie中查找用户
-            var userPhone = $.cookie('userPhone');
+            var userPhone = params['userPhone'];
             //console.log("userPhone:"+ userPhone);
             var seckillId = params['seckillId'];
             var startTime = params['startTime'];
             var endTime = params['endTime'];
             //验证手机
             if (!seckill.validatePhone(userPhone)) {
-                //绑定phone
+                /*//绑定phone
                 //控制输出
                 var killPhoneModal = $("#killPhoneModal");
                 killPhoneModal.modal({
@@ -112,7 +111,9 @@ var seckill = {
                     } else {
                         $("#killPhoneMessage").hide().html("<label class='label label-danger'>手机号错误</label>").show(300);
                     }
-                });
+                });*/
+                alert("请先登录")
+                window.location.href = "user/toLoginOrRegister"
             }
             //已经登录
             $.get(seckill.URL.now(), {}, function (result) {

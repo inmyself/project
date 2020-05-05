@@ -72,7 +72,9 @@ public class RedisDao {
                     byte[] bytes = ProtobufIOUtil.toByteArray(seckill, schema,
                             LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE));
                     //超时缓存
-                    int timeout = 60 * 60;
+                    //采用固定+随机值，防止key在同一时间全部失效，致使请求全部落在数据库上，从而引发缓存雪崩
+                    int random = (int) (Math.random() * 60 * 10);//0-10分钟随机值
+                    int timeout = 60 * 60 + random;
                     String result = jedis.setex(key.getBytes(), timeout, bytes);
                 } finally {
                     jedis.close();

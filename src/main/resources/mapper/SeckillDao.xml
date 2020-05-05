@@ -34,6 +34,10 @@
         order by create_time desc
         limit #{offset}, #{limit}
     </select>
+    <!--查询秒杀商品数量-->
+    <select id="seckillCount" resultType="Integer">
+        select COUNT(*) from seckill;
+    </select>
 
     <!--mybatis调用执行秒杀的存储过程-->
     <select id="killByProcedure" statementType="CALLABLE">

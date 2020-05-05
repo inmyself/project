@@ -2,6 +2,7 @@ package wl.seckill.service;
 
 import wl.seckill.dto.Exposer;
 import wl.seckill.dto.SeckillExecution;
+import wl.seckill.dto.SeckillList;
 import wl.seckill.entity.Seckill;
 import wl.seckill.exception.RepeatKillException;
 import wl.seckill.exception.SeckillClosedException;
@@ -19,7 +20,7 @@ public interface SeckillService {
      * 查询所有秒杀记录
      * @return
      */
-    List<Seckill> getSeckillList();
+    SeckillList<Seckill> getSeckillList(Integer page);
 
     /**
      * 查询单个秒杀记录
