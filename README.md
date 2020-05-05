@@ -1,13 +1,15 @@
 # project
-### 这是一个小型的秒杀系统，后端采用SSM + MySQL + Redis技术，采用JSP + Bootstrap + ajax技术开发用户界面和交互。。
+### 这是一个小型的秒杀系统，后端采用SSM + MySQL + Redis技术，前端采用JSP + Bootstrap + ajax技术开发用户界面和交互。
 ### 业务流程
 用户进入秒杀列表页，点击详情查看秒杀商品状态（是否开启秒杀），如果未登录，进入登录界面。然后根据商品的秒杀状态选择是否暴露表示接口。然后点击开始秒杀按钮进行秒杀，然后返回秒杀结果（异步ajax）。
 
 ##### 部分类简介
 - Seckill:秒杀商品实体类
 - SuccessKilled：秒杀成功实体类
-- Exposer接口封装类
+- Exposer：接口封装类
 - SeckillExecution：秒杀结果封装类
+- User：用户类
+- SeckillList：商品列表分页类
 
 #### 秒杀瓶颈分析
 
