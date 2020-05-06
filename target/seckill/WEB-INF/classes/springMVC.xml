@@ -20,4 +20,12 @@
         允许使用“/”做整体映射-->
     <mvc:default-servlet-handler/>
 
+    <!--拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/seckill/*/*/execution"/>
+            <bean class="wl.seckill.interceptor.MyInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
 </beans>
