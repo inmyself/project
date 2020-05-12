@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import wl.seckill.dto.UserInfo;
+import wl.seckill.dto.ResultInfo;
 import wl.seckill.entity.User;
 import wl.seckill.enums.UserStateEnum;
 import wl.seckill.service.UserService;
@@ -42,12 +42,12 @@ public class UserController {
      */
     @RequestMapping(value = "/{userPhone}/check", method = RequestMethod.GET)
     @ResponseBody
-    public UserInfo checkPhone(@PathVariable("userPhone") Long userPhone){
+    public ResultInfo checkPhone(@PathVariable("userPhone") Long userPhone){
         try {
             if (userPhone != null){
                 return userService.judgePhone(userPhone);
             }else
-                return new UserInfo(false, UserStateEnum.PHONE_ERROE);
+                return new ResultInfo(false, UserStateEnum.PHONE_ERROE);
         }catch (Exception e){
             throw new RuntimeException(UserStateEnum.INNER_ERROR.getStateInfo(), e);
         }
@@ -56,7 +56,7 @@ public class UserController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public UserInfo register(User user){
+    public ResultInfo register(User user){
         try {
             return userService.userRegister(user);
         }catch (Exception e){
@@ -66,13 +66,11 @@ public class UserController {
 
     @RequestMapping(value = "/{userPhone}/{userPsw}/login")
     @ResponseBody
-    public UserInfo login(@PathVariable("userPhone") Long userPhone, @PathVariable("userPsw") String userPsw,
+    public ResultInfo login(@PathVariable("userPhone") Long userPhone, @PathVariable("userPsw") String userPsw,
                             HttpSession session){
         try {
-            UserInfo userInfo = userService.userLogin(userPhone, userPsw);
-            if (userInfo.isSuccess())//存入session
-                session.setAttribute("user", userPhone);
-            return userInfo;
+            ResultInfo resultInfo = userService.userLogin(userPhone, userPsw, session);
+            return resultInfo;
         }catch (Exception e){
             throw new RuntimeException(UserStateEnum.INNER_ERROR.getStateInfo(), e);
         }

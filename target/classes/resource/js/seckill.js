@@ -112,8 +112,8 @@ var seckill = {
                         $("#killPhoneMessage").hide().html("<label class='label label-danger'>手机号错误</label>").show(300);
                     }
                 });*/
-                /*alert("请先登录")
-                window.location.href = "user/toLoginOrRegister"*/
+                alert("请先登录")
+                window.location.href = "user/toLoginOrRegister"
             }
             //已经登录
             $.get(seckill.URL.now(), {}, function (result) {

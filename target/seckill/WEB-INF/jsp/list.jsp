@@ -10,14 +10,14 @@
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 
 %>
-<%@ page contentType="text/html;charset=UTF-8" language="java"  %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 
 <head>
     <title>秒杀列表页</title>
     <%@include file="commeon/head.jsp" %>
     <%@include file="commeon/tag.jsp" %>
-    <base href="<%= basePath%>"><%--不加这个，跳转后会丢失项目名--%>
+    <base href="<%= basePath%>" /><%--不加这个，跳转后会丢失项目名--%>
 </head>
 <body>
     <div class="container">
@@ -25,13 +25,13 @@
         <nav class="navber navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/seckill/1/list">限时秒杀</a>
+                    <a class="navbar-brand" href="seckill/1/list">限时秒杀</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/seckill/1/list">秒杀列表</a> </li>
-                    <li><a href="#">我的订单</a> </li>
+                    <li class="active"><a href="seckill/1/list">秒杀列表</a> </li>
+                    <li><a href="#" onclick="nav.isSession.toOrder({userPhone:${user.userPhone}+'', page:1})">我的订单</a> </li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right" id="userInfo">
                     <li><a href="user/toLoginOrRegister"><span class="glyphicon glyphicon-user">注册</span> </a> </li>
                     <li><a href="user/toLoginOrRegister"><span class="glyphicon glyphicon-user">登录</span> </a> </li>
                 </ul>
@@ -92,5 +92,4 @@
 
 
 </body>
-
 </html>

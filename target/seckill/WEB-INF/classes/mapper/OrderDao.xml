@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wl.seckill.dao.OrderDao">
+
+    <!--根据手机号查询订单-->
+    <select id="queryByPhone" resultType="SuccessKilled">
+        select
+            sk.seckill_id,
+            sk.user_phone,
+            sk.state,
+            sk.create_time,
+            s.seckill_id as "seckill.seckill_id",
+            s.name as "seckill.name",
+            s.number as "seckill.number",
+            s.start_time as "seckill.start_time",
+            s.end_time as "seckill.end_time",
+            s.create_time as "seckill.create_time"
+        from success_killed sk
+        left join seckill s on sk.seckill_id = s.seckill_id
+        <where>
+            sk.user_phone = #{userPhone}
+        </where>
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--删除购买记录-->
+    <delete id="deleteBySeckill">
+        delete from success_killed
+        <where>
+            user_phone = #{userPhone} and
+            seckill_id = #{seckillId}
+        </where>
+    </delete>
+
+    <!--查询用户订单总数-->
+    <select id="countByPhone" resultType="Integer">
+        select COUNT(*)
+        from success_killed
+        <where>
+            user_phone = #{userPhone}
+        </where>
+    </select>
+</mapper>

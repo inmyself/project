@@ -1,7 +1,9 @@
 package wl.seckill.service;
 
-import wl.seckill.dto.UserInfo;
+import wl.seckill.dto.ResultInfo;
 import wl.seckill.entity.User;
+
+import javax.servlet.http.HttpSession;
 
 public interface UserService {
 
@@ -10,14 +12,14 @@ public interface UserService {
      * @param user
      * @return
      */
-    UserInfo userRegister(User user);
+    ResultInfo userRegister(User user);
 
     /**
      * 注册电话校验
      * @param userPhone
      * @return
      */
-    UserInfo judgePhone(long userPhone);
+    ResultInfo judgePhone(long userPhone);
 
     /**
      * 用户登录
@@ -25,5 +27,5 @@ public interface UserService {
      * @param userPsw
      * @return
      */
-    UserInfo userLogin(long userPhone, String userPsw);
+    ResultInfo userLogin(long userPhone, String userPsw, HttpSession session);
 }

@@ -13,3 +13,12 @@
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery-form-serializer/1.2.0/jQuery-form-serializer.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<%--导航栏控制js--%>
+<script src="${pageContext.request.contextPath}/resource/js/nav.js" type="text/javascript"></script>
+<script>
+    $(function () {
+        nav.isSession.judge({
+            userPhone : ${user.userPhone}+""
+        });
+    })
+</script>

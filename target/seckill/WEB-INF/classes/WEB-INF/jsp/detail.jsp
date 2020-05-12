@@ -9,7 +9,7 @@
     <title>秒杀详情页</title>
     <%@include file="commeon/head.jsp"%>
     <%@include file="commeon/tag.jsp"%>
-    <base href="<%= basePath%>">
+    <base href="<%= basePath%>" />
 </head>
 <body>
 <div class="container">
@@ -17,11 +17,11 @@
     <nav class="navber navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/seckill/1/list">限时秒杀</a>
+                <a class="navbar-brand" href="seckill/1/list">限时秒杀</a>
             </div>
             <ul class="nav navbar-nav">
-                <li><a href="/seckill/1/list">秒杀列表</a> </li>
-                <li><a href="#">我的订单</a> </li>
+                <li><a href="seckill/1/list">秒杀列表</a> </li>
+                <li><a href="#" onclick="nav.isSession.toOrder({userPhone:${user.userPhone}+'', page:1})">我的订单</a> </li>
             </ul>
             <ul class="nav navbar-nav navbar-right" id="userInfo">
                 <li><a href="#"><span class="glyphicon glyphicon-user">注册</span> </a> </li>
@@ -31,9 +31,10 @@
     </nav>
     <br>
     <br>
-    <div class="panel panel-default text-center">
+        <br>
+    <div class="panel panel-default   text-center">
         <div class="pannel-heading">
-            <h1>${seckill.name}</h1>
+            <h2>${seckill.name}</h2>
         </div>
 
         <div class="panel-body">
@@ -95,8 +96,19 @@
             seckillId : ${seckill.seckillId},
             startTime : ${seckill.startTime.time},
             endTime : ${seckill.endTime.time},
-            userPhone : ${user}+"",
+            userPhone : ${user.userPhone}+"",
         });
-    })
+    });
+
+    function toOrder() {
+        var userPhone = ${user.userPhone}+""
+
+        if (userPhone){
+            window.location.href = nav.URL.toOrder(userPhone, 1)
+        }else {
+            alert("请先登录")
+            window.location.href = user.URL.toLoginOrRegister()
+        }
+    }
 </script>
 </html>

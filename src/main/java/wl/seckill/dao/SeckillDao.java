@@ -42,4 +42,12 @@ public interface SeckillDao {
      * 使用存储过程执行秒杀
      */
     void killByProcedure(Map<String, Object> paramMap);
+
+    /**
+     * 添加number件seckillId商品
+     * @param seckillId
+     * @param number
+     * @return 影响的行数
+     */
+    int addNumber(@Param("seckillId") long seckillId, @Param("number") int number);
 }

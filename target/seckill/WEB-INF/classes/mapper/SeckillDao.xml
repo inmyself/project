@@ -48,4 +48,15 @@
             #{result, jdbcType=INTEGER, mode=OUT}
         )
     </select>
+
+    <!--添加库存-->
+    <update id="addNumber">
+        update seckill
+        <set>
+            number = number + #{number}
+        </set>
+        <where>
+            seckill_id = #{seckillId}
+        </where>
+    </update>
 </mapper>
