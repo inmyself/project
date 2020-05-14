@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import wl.seckill.dao.SeckillDao;
+import wl.seckill.dao.cache.RedisDao;
 import wl.seckill.dto.Exposer;
 import wl.seckill.dto.SeckillExecution;
 import wl.seckill.dto.SeckillList;
@@ -15,6 +17,8 @@ import wl.seckill.exception.RepeatKillException;
 import wl.seckill.exception.SeckillClosedException;
 import wl.seckill.service.SeckillService;
 
+import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -28,16 +32,28 @@ public class SeckillServiceImplTest {
     @Autowired
     private SeckillService seckillService;
 
+    @Autowired
+    private RedisDao redisDao;
+
+    @Autowired
+    private SeckillDao seckillDao;
+
     @Test
     public void getSeckillList() {
-        SeckillList<Seckill> list = seckillService.getSeckillList(0);
-        logger.info("list{}", list.getSeckillList());
-        //16:34:49.781 [main] INFO  w.s.s.impl.SeckillServiceImplTest - list[
-        // Seckill{seckillId=1000, name='1000元秒杀iPhone X', number=99, startTime=Fri Apr 24 00:00:00 CST 2020, endTime=Thu Apr 30 12:00:00 CST 2020, createTime=Fri Apr 24 17:17:20 CST 2020},
-        // Seckill{seckillId=1001, name='800元秒杀小米6', number=100, startTime=Fri Dec 13 00:00:00 CST 2019, endTime=Fri Dec 13 12:00:00 CST 2019, createTime=Fri Apr 24 17:17:20 CST 2020},
-        // Seckill{seckillId=1002, name='1000元秒杀华为 mate 30', number=100, startTime=Fri Dec 13 00:00:00 CST 2019, endTime=Fri Dec 13 12:00:00 CST 2019, createTime=Fri Apr 24 17:17:20 CST 2020},
-        // Seckill{seckillId=1003, name='600元秒杀荣耀 30', number=100, startTime=Fri Dec 13 00:00:00 CST 2019, endTime=Fri Dec 13 12:00:00 CST 2019, createTime=Fri Apr 24 17:17:20 CST 2020},
-        // Seckill{seckillId=1004, name='1200元秒杀iPad Air3', number=100, startTime=Fri Dec 13 00:00:00 CST 2019, endTime=Fri Dec 13 12:00:00 CST 2019, createTime=Fri Apr 24 17:17:20 CST 2020}]
+        // 1.从Redis查询
+        // 2.Redis未查到，查询数据库
+        // 3.将数据库查询结果存入Redis
+        int page = 0;
+        List<Seckill> list1 = redisDao.getSeckillList(page);
+        if (list1 == null){
+            list1 = seckillDao.queryAll(page * 10, 10);
+            redisDao.putSeckillList(page, list1);
+            System.out.println("mysql:" + list1);
+        }else {
+            System.out.println("redis:" + list1);
+        }
+        /*SeckillList<Seckill> list = seckillService.getSeckillList(0);
+        logger.info("list{}", list.getSeckillList());*/
     }
 
     @Test

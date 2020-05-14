@@ -24,6 +24,7 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/seckill/*/*/execution"/>
+            <mvc:mapping path="/order/**"/>
             <bean class="wl.seckill.interceptor.MyInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

@@ -47,13 +47,21 @@ public class SeckillServiceImpl implements SeckillService {
 
     @Override
     public SeckillList<Seckill> getSeckillList(Integer page) {
-        int count = seckillDao.seckillCount();
-        if (page > (count / 10))
-            page = count / 10;
-        else if (page < 0)
-            page = 0;
-        List<Seckill> list = seckillDao.queryAll(page * 10, 10);
-        return new SeckillList<Seckill>(page + 1, list);
+        //从Redis缓存中查询数据
+        List<Seckill> list1 = redisDao.getSeckillList(page);
+        if (list1 == null){//没有，则查询数据库
+            int count = seckillDao.seckillCount();
+            if (page > (count / 10))
+                page = count / 10;
+            else if (page < 0)
+                page = 0;
+            List<Seckill> list = seckillDao.queryAll(page * 10, 10);
+            //放入缓存
+            redisDao.putSeckillList(page, list);
+            return new SeckillList<Seckill>(page + 1, list);
+        }else {
+            return new SeckillList<Seckill>(page + 1, list1);
+        }
     }
 
     @Override

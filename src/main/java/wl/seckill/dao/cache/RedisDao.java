@@ -9,6 +9,9 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import wl.seckill.entity.Seckill;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Redis缓存数据
  * create by wule on 2020/4/30
@@ -64,7 +67,7 @@ public class RedisDao {
      * @param seckill
      * @return
      */
-    public String putSeckill(Seckill seckill) {
+    public void putSeckill(Seckill seckill) {
         try {
             try (Jedis jedis = jedisPool.getResource()) {
                 try {
@@ -83,7 +86,62 @@ public class RedisDao {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
+    }
+
+    /**
+     * 从缓存中拿首页分页展示信息
+     * @param page
+     */
+    public List<Seckill> getSeckillList(int page){
+        try {
+            Jedis jedis = jedisPool.getResource();
+            try {
+                String key = "seckill:page" + page;
+                List<byte[]> list = jedis.lrange(key.getBytes(), page * 10, 10);
+                List<Seckill> res = new ArrayList<>();
+                if (list != null){
+                    for (byte[] bytes : list){
+                        Seckill seckill = schema.newMessage();
+                        ProtobufIOUtil.mergeFrom(bytes, seckill, schema);
+                        res.add(seckill);
+                    }
+                    if (res.size() == 0)
+                        return null;
+                    return res;
+                }
+            }finally {
+                jedis.close();
+            }
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+        }
         return null;
+    }
+
+    /**
+     * 首页分页信息存入Redis
+     * @param list
+     */
+    public void putSeckillList(int page, List<Seckill> list){
+        try {
+            Jedis jedis = jedisPool.getResource();
+            try {
+                String key = "seckill:page" + page;
+                for (Seckill seckill :
+                        list) {
+                    byte[] bytes = ProtobufIOUtil.toByteArray(seckill, schema,
+                            LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE));
+                    jedis.rpush(key.getBytes(), bytes);
+                }
+                int random = (int) (Math.random() * 60 * 10);//0-10分钟随机值
+                int timeout = 60 * 60 * 12 + random;
+                jedis.expire(key.getBytes(), timeout);
+            }finally {
+                jedis.close();
+            }
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+        }
     }
 
 }
